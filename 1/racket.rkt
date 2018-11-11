@@ -12,6 +12,10 @@
           [(= x y) (stream-cons x (interleave (stream-rest s1) (stream-rest s2)))]
           [else    (stream-cons y (interleave s1 (stream-rest s2)))])))
 
-(sequence->list
- (stop-before (interleave (multiples 3) (multiples 5))
-              (lambda x (>= (car x) 1000))))
+(define multiples-3-5
+  (sequence->list
+   (stop-before (interleave (multiples 3) (multiples 5))
+                (lambda x (>= (car x) 1000)))))
+
+(for ([x multiples-3-5])
+  (displayln x))
